@@ -28,4 +28,11 @@ public abstract class HardwareComposite implements HardwareComponent {
             child.accept(visitor);
         }
     }
+
+    @Override
+    public void getMetrics() {
+        for (HardwareComponent child : children) {
+            child.getMetrics();
+        }
+    }
 }

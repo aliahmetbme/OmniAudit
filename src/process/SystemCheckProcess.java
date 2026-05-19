@@ -17,6 +17,10 @@ public abstract class SystemCheckProcess {
         this.rootNode = rootNode;
     }
 
+    public HardwareComponent getRootNode() {
+        return rootNode;
+    }
+
     public void addTask(SystemTaskVisitor task) {
         this.tasks.add(task);
     }
@@ -55,15 +59,7 @@ public abstract class SystemCheckProcess {
     // Step 4: Perform Analysis (Uses the Visitor and Composite Patterns)
     protected void performAnalysis() {
         System.out.println("\n--- Step 4: Perform Analysis ---");
-        if (rootNode != null) {
-            for (SystemTaskVisitor task : tasks) {
-                System.out.println(">> Executing task: " + task.getClass().getSimpleName());
-                // The Visitor enters the Composite tree here!
-                rootNode.accept(task);
-            }
-        } else {
-            System.out.println("Error: No hardware tree found to analyze.");
-        }
+        System.out.println("Hardware tree is ready for visitors. Delegation to MacroCommand will follow.");
     }
 
     // Step 5: Generate Report

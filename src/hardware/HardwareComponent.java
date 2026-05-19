@@ -16,5 +16,6 @@ public interface HardwareComponent {
      * it can enter by calling the accept method.
      */
     void accept(SystemTaskVisitor visitor);
+    void getMetrics();
 }
 

@@ -22,14 +22,12 @@ public class SystemAdminFacade {
      * Hides all the complex subsystems (Adapter, Composite, Visitor, Template Method).
      */
 
-    public void executeAudit(HardwareComponent rootNode, List<String> taskNames) {
+    public void executeAudit(List<String> taskNames) {
         System.out.println("\n[FACADE] Administrator initiated the system audit...");
 
-        // 1. Give the hardware tree to the Template Method
-        checkProcess.setRootNode(rootNode);
-
-        // 2. Prepare our Macro Command queue
+        // 1. Prepare our Macro Command queue
         MacroCommand macroQueue = new MacroCommand();
+        HardwareComponent rootNode = checkProcess.getRootNode();
 
         for (String taskName : taskNames) {
             SystemTaskVisitor visitor = null;
@@ -41,21 +39,18 @@ public class SystemAdminFacade {
             }
 
             if (visitor != null) {
-                // Add to Template Method's internal list
-                checkProcess.addTask(visitor);
-
                 // Wrap in a Command and add to Macro Queue (Satisfying the Command Pattern logic)
                 macroQueue.addCommand(new TaskCommand(rootNode, visitor));
-
             }
         }
 
         System.out.println("[FACADE] Tasks are queued. Starting the Template Method framework...");
 
-        // 3. Fire the 5 - step framework
+        // 2. Fire the 5 - step framework
         checkProcess.runCheck();
 
-        // (Note: The MacroCommand execution is simulated/handled within the runCheck's analysis step,
-        // but we created the MacroCommand structure here to fulfill the pattern requirement.)
+        System.out.println("\n[FACADE] Data is ready. Executing queued tasks via MacroCommand...");
+        // 3. Execute queued Macro Commands
+        macroQueue.execute();
     }
 }

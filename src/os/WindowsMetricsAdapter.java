@@ -4,19 +4,28 @@ public class WindowsMetricsAdapter implements SystemMetricsProvider {
 
     @Override
     public void getSystemData() {
-        // Simulates the Windows GetSystemInfo API
-        System.out.println("Windows API: Calling GetSystemInfo()...");
+        GetSystemInfo();
     }
 
     @Override
     public void getMemoryUsage() {
-        // Simulates the Windows GlobalMemoryStatusEx API
-        System.out.println("Windows API: Calling GlobalMemoryStatusEx()...");
+        GlobalMemoryStatusEx();
     }
 
     @Override
     public void getProcessUsage() {
-        // Simulates the Windows GetProcessTimes API
+        GetProcessTimes();
+    }
+
+    private void GetSystemInfo() {
+        System.out.println("Windows API: Calling GetSystemInfo()...");
+    }
+
+    private void GlobalMemoryStatusEx() {
+        System.out.println("Windows API: Calling GlobalMemoryStatusEx()...");
+    }
+
+    private void GetProcessTimes() {
         System.out.println("Windows API: Calling GetProcessTimes()...");
     }
 }

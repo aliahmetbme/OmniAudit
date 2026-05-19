@@ -7,4 +7,9 @@ public class NIC implements HardwareComponent{
     public void accept(SystemTaskVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public void getMetrics() {
+        System.out.println("NIC: Providing hardware metrics...");
+    }
 }

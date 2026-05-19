@@ -4,19 +4,28 @@ public class LinuxMetricsAdapter implements SystemMetricsProvider {
 
     @Override
     public void getSystemData() {
-        // Simulates the uname() API
-        System.out.println("Linux API: Executing uname() to get system information...");
+        uname();
     }
 
     @Override
     public void getMemoryUsage() {
-        // Simulates reading from the /proc file system
-        System.out.println("Linux API: Reading /proc/meminfo for memory usage...");
+        readProcMeminfo();
     }
 
     @Override
     public void getProcessUsage() {
-        // Simulates reading from the /proc file system
+        readProcStat();
+    }
+
+    private void uname() {
+        System.out.println("Linux API: Executing uname() to get system information...");
+    }
+
+    private void readProcMeminfo() {
+        System.out.println("Linux API: Reading /proc/meminfo for memory usage...");
+    }
+
+    private void readProcStat() {
         System.out.println("Linux API: Reading /proc/stat for process usage...");
     }
 }

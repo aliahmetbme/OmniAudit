@@ -9,4 +9,9 @@ public class Memory implements HardwareComponent{
         // The visitor accepts and passes itself to it
         visitor.visit(this);
     }
+
+    @Override
+    public void getMetrics() {
+        System.out.println("Memory: Providing hardware metrics...");
+    }
 }

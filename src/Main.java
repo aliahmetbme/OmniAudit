@@ -41,6 +41,7 @@ public class Main {
          * We choose a local check. If we wanted remote, we would just say "new RemoteSystemCheck()".
          */
         SystemCheckProcess checkProcess = new LocalSystemCheck();
+        checkProcess.setRootNode(myComputer);
 
 
         /*
@@ -61,6 +62,6 @@ public class Main {
          * STEP 5: FIRE THE SYSTEM!
          * One single method call triggers the entire pipeline.
          */
-        adminPanel.executeAudit(myComputer, desiredTasks);
+        adminPanel.executeAudit(desiredTasks);
     }
 }
