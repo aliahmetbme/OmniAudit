@@ -5,6 +5,7 @@ import hardware.ISABus;
 import hardware.Memory;
 import hardware.Motherboard;
 import hardware.NIC;
+import hardware.Disk;
 import process.LocalSystemCheck;
 import process.SystemCheckProcess;
 
@@ -17,22 +18,31 @@ public class Main {
 
         /*
          * STEP 1: Build the Hardware Tree (COMPOSITE PATTERN)
-         * We are creating the physical structure: Computer -> Motherboard -> (CPU, Memory, ISABus -> NIC)
+         * We are creating the physical structure: Computer -> Motherboard -> (CPUs, Disks, Memory, ISABus -> NICs)
          */
         System.out.println("[MAIN] Building the hardware composite tree...");
         Computer myComputer = new Computer();
         Motherboard myMotherboard = new Motherboard();
         ISABus myIsaBus = new ISABus();
 
-        CPU myCpu = new CPU();
+        // Plural nodes as described in the requirements: "Motherboard, CPUs, Disks, Memory and Network Interfaces"
+        CPU myCpu1 = new CPU();
+        CPU myCpu2 = new CPU();
         Memory myMemory = new Memory();
+        Disk myDisk1 = new Disk();
+        Disk myDisk2 = new Disk();
         NIC myNic = new NIC();
 
         // Assembling the parts
         myIsaBus.addComponent(myNic);
-        myMotherboard.addComponent(myCpu);
+        
+        myMotherboard.addComponent(myCpu1);
+        myMotherboard.addComponent(myCpu2);
         myMotherboard.addComponent(myMemory);
+        myMotherboard.addComponent(myDisk1);
+        myMotherboard.addComponent(myDisk2);
         myMotherboard.addComponent(myIsaBus);
+        
         myComputer.addComponent(myMotherboard); // Root node is ready!
 
 
@@ -54,8 +64,9 @@ public class Main {
         /*
          * STEP 4: Define the tasks (COMMAND & VISITOR PATTERNS)
          * The admin simply creates a list of strings for the desired audits.
+         * Including our creative "Performance" task!
          */
-        List<String> desiredTasks = Arrays.asList("Security", "Optimization");
+        List<String> desiredTasks = Arrays.asList("Security", "Optimization", "Performance");
 
 
         /*

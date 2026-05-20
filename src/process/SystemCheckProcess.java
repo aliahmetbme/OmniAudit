@@ -3,6 +3,7 @@ package process;
 import hardware.HardwareComponent;
 import os.SystemMetricsProvider;
 import tasks.SystemTaskVisitor;
+import admin.Command;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public abstract class SystemCheckProcess {
     protected SystemMetricsProvider metricsProvider;
     protected HardwareComponent rootNode;
     protected List<SystemTaskVisitor> tasks = new ArrayList<>();
+    private Command analysisCommand;
 
     public void setRootNode(HardwareComponent rootNode) {
         this.rootNode = rootNode;
@@ -23,6 +25,14 @@ public abstract class SystemCheckProcess {
 
     public void addTask(SystemTaskVisitor task) {
         this.tasks.add(task);
+    }
+
+    public void setAnalysisCommand(Command analysisCommand) {
+        this.analysisCommand = analysisCommand;
+    }
+
+    public Command getAnalysisCommand() {
+        return this.analysisCommand;
     }
 
     /*
@@ -59,7 +69,12 @@ public abstract class SystemCheckProcess {
     // Step 4: Perform Analysis (Uses the Visitor and Composite Patterns)
     protected void performAnalysis() {
         System.out.println("\n--- Step 4: Perform Analysis ---");
-        System.out.println("Hardware tree is ready for visitors. Delegation to MacroCommand will follow.");
+        if (analysisCommand != null) {
+            System.out.println("Executing configured analyses via Command Pattern...");
+            analysisCommand.execute();
+        } else {
+            System.out.println("No analyses configured.");
+        }
     }
 
     // Step 5: Generate Report

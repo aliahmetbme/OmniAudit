@@ -4,6 +4,7 @@ import hardware.HardwareComponent;
 import process.SystemCheckProcess;
 import tasks.ResourceOptimizerVisitor;
 import tasks.SecurityAuditorVisitor;
+import tasks.PerformanceAnalyzerVisitor;
 import tasks.SystemTaskVisitor;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class SystemAdminFacade {
                 visitor = new SecurityAuditorVisitor();
             } else if (taskName.equalsIgnoreCase("Optimization")) {
                 visitor = new ResourceOptimizerVisitor();
+            } else if (taskName.equalsIgnoreCase("Performance")) {
+                visitor = new PerformanceAnalyzerVisitor();
             }
 
             if (visitor != null) {
@@ -44,13 +47,15 @@ public class SystemAdminFacade {
             }
         }
 
-        System.out.println("[FACADE] Tasks are queued. Starting the Template Method framework...");
+        // Configure the analysis step to use our MacroCommand
+        checkProcess.setAnalysisCommand(macroQueue);
 
-        // 2. Fire the 5 - step framework
+        System.out.println("[FACADE] Tasks are queued and configured on the check process.");
+        System.out.println("[FACADE] Starting the Template Method framework...");
+
+        // 2. Fire the 5-step framework
         checkProcess.runCheck();
 
-        System.out.println("\n[FACADE] Data is ready. Executing queued tasks via MacroCommand...");
-        // 3. Execute queued Macro Commands
-        macroQueue.execute();
+        System.out.println("[FACADE] System audit pipeline completed successfully!");
     }
 }

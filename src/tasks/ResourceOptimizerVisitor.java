@@ -3,6 +3,7 @@ package tasks;
 import hardware.CPU;
 import hardware.Memory;
 import hardware.NIC;
+import hardware.Disk;
 
 public class ResourceOptimizerVisitor implements SystemTaskVisitor {
 
@@ -20,5 +21,10 @@ public class ResourceOptimizerVisitor implements SystemTaskVisitor {
     @Override
     public void visit(NIC nic) {
         System.out.println("ResourceOptimizer: Analyzing network bandwidth usage...");
+    }
+
+    @Override
+    public void visit(Disk disk) {
+        System.out.println("ResourceOptimizer: Identifying processes hogging disk I/O and scanning for fragmentation...");
     }
 }

@@ -3,6 +3,7 @@ package tasks;
 import hardware.CPU;
 import hardware.Memory;
 import hardware.NIC;
+import hardware.Disk;
 
 public class SecurityAuditorVisitor implements SystemTaskVisitor {
 
@@ -26,5 +27,10 @@ public class SecurityAuditorVisitor implements SystemTaskVisitor {
     public void visit(NIC nic) {
         // As requested in the project description:
         System.out.println("SecurityAuditor: Checking NIC for open ports...");
+    }
+
+    @Override
+    public void visit(Disk disk) {
+        System.out.println("SecurityAuditor: Scanning Disk for unencrypted sensitive files and malware...");
     }
 }
