@@ -10,10 +10,17 @@ import java.util.List;
 
 public abstract class SystemCheckProcess {
     // Dependencies injected from other parts of our architecture
+    protected String osType;
     protected SystemMetricsProvider metricsProvider;
     protected HardwareComponent rootNode;
     protected List<SystemTaskVisitor> tasks = new ArrayList<>();
     private Command analysisCommand;
+
+    // Parameterized constructor to dynamically define OS type and initialize its adapter
+    public SystemCheckProcess(String osType) {
+        this.osType = osType;
+        this.metricsProvider = os.MetricsAdapterFactory.getAdapter(osType);
+    }
 
     public void setRootNode(HardwareComponent rootNode) {
         this.rootNode = rootNode;
