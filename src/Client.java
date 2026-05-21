@@ -1,13 +1,14 @@
+// ALİ AHMET ERDOĞDU - 20220601405
+// MUHAMMED SAİT DOKUR - 20200601022
+// BARIŞ CAN CEYLAN - 20190601053
+// BATUHAN CAN - 20200601051
+// OmniAudit Project - System Health and Audit Tool
+// SE 311 - Software Engineering 
+
 import java.util.Arrays;
 import java.util.List;
 
 // ======================== FILE: Client.java ========================
-// ALİ AHMET ERDOĞDU
-// MUHAMMED SAİT DOKUR
-// BARIŞ CAN CEYLAN
-// BATUHAN CAN
-// OmniAudit Project - System Health and Audit Tool
-// SE 311 - Software Engineering 
 
 
 public class Client {
@@ -87,5 +88,33 @@ public class Client {
         adminMac.executeAudit(Arrays.asList("Security", "Optimization", "Performance"));
         
         System.out.println("\n=== All system audits completed successfully! ===");
+        
+        System.out.println("\n\n========================================================");
+        System.out.println(" STRESS TEST 1: Factory Pattern Rejection (Unknown OS)  ");
+        System.out.println("========================================================");
+        try {
+            System.out.println("Attempting to audit a PlayStation5...");
+            SystemCheckProcess checkPS5 = new LocalSystemCheck("PlayStation5");
+        } catch (IllegalArgumentException e) {
+            System.out.println("[FACTORY GUARD TRIGGERED] Expected Error Caught: " + e.getMessage());
+        }
+
+        System.out.println("\n========================================================");
+        System.out.println(" STRESS TEST 2: MacroCommand Pattern (Deep Queue)       ");
+        System.out.println("========================================================");
+        adminWindows.executeAudit(Arrays.asList("Security", "Security", "Performance", "Security"));
+
+        System.out.println("\n========================================================");
+        System.out.println(" STRESS TEST 3: Composite & Visitor Pattern Synergy     ");
+        System.out.println("========================================================");
+        System.out.println("Hot-plugging 3 brand new CPUs into the existing Motherboard dynamically...");
+        myMotherboard.addComponent(new CPU());
+        myMotherboard.addComponent(new CPU());
+        myMotherboard.addComponent(new CPU());
+        
+        System.out.println("Running Security Audit again. The Visitor should automatically find and scan the 3 new CPUs.");
+        adminWindows.executeAudit(Arrays.asList("Security"));
+        
+        System.out.println("\n=== OmniAudit Shutdown Sequence Complete ===");
     }
 }
