@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.List;
+
+// ======================== FILE: Client.java ========================
 // ALİ AHMET ERDOĞDU
 // MUHAMMED SAİT DOKUR
 // BARIŞ CAN CEYLAN
@@ -5,19 +9,6 @@
 // OmniAudit Project - System Health and Audit Tool
 // SE 311 - Software Engineering 
 
-import admin.SystemAdminFacade;
-import hardware.CPU;
-import hardware.Computer;
-import hardware.ISABus;
-import hardware.Memory;
-import hardware.Motherboard;
-import hardware.NIC;
-import hardware.Disk;
-import process.LocalSystemCheck;
-import process.SystemCheckProcess;
-import process.RemoteSystemCheck;
-import java.util.Arrays;
-import java.util.List;
 
 public class Client {
     public static void main(String[] args) {

@@ -1,11 +1,8 @@
-package process;
-
-import hardware.HardwareComponent;
-import os.SystemMetricsProvider;
-import tasks.SystemTaskVisitor;
-import admin.Command;
 import java.util.ArrayList;
 import java.util.List;
+
+// ======================== FILE: process/SystemCheckProcess.java ========================
+
 
 
 /**
@@ -26,7 +23,7 @@ public abstract class SystemCheckProcess {
     // Parameterized constructor to dynamically define OS type and initialize its adapter
     public SystemCheckProcess(String osType) {
         this.osType = osType;
-        this.metricsProvider = os.MetricsAdapterFactory.getAdapter(osType);
+        this.metricsProvider = MetricsAdapterFactory.getAdapter(osType);
     }
 
     public void setRootNode(HardwareComponent rootNode) {
@@ -95,5 +92,47 @@ public abstract class SystemCheckProcess {
     protected void generateReport() {
         System.out.println("\n--- Step 5: Generate Report ---");
         System.out.println("System audit report successfully generated and saved.\n");
+    }
+}
+// ======================== FILE: process/LocalSystemCheck.java ========================
+
+
+class LocalSystemCheck extends SystemCheckProcess {
+
+    // Default constructor for backward compatibility
+    public LocalSystemCheck() {
+        super("Windows");
+    }
+
+    // Parameterized constructor to dynamically define OS type
+    public LocalSystemCheck(String osType) {
+        super(osType);
+    }
+
+    @Override
+    protected void setup() {
+        System.out.println("\n--- Step 1: Setup (Local Machine) ---");
+        System.out.println("Initializing connection to the local machine...");
+    }
+}
+// ======================== FILE: process/RemoteSystemCheck.java ========================
+
+
+class RemoteSystemCheck extends SystemCheckProcess {
+
+    // Default constructor for backward compatibility
+    public RemoteSystemCheck() {
+        super("Linux");
+    }
+
+    // Parameterized constructor to dynamically define OS type
+    public RemoteSystemCheck(String osType) {
+        super(osType);
+    }
+
+    @Override
+    protected void setup() {
+        System.out.println("\n--- Step 1: Setup (Remote Server) ---");
+        System.out.println("Establishing secure SSH connection to the remote server...");
     }
 }
