@@ -1,5 +1,11 @@
 package os;
 
+/**
+ * SIMPLE FACTORY PATTERN: Creational Utility
+ * Dynamically resolves and instantiates the correct OS adapter at runtime.
+ * Ensures the core auditing engine remains entirely OS-Agnostic by injecting 
+ * the appropriate SystemMetricsProvider based on the execution context.
+ */
 public class MetricsAdapterFactory {
 
     /*

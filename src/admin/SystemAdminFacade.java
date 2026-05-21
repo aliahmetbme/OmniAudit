@@ -8,6 +8,12 @@ import tasks.PerformanceAnalyzerVisitor;
 import tasks.SystemTaskVisitor;
 import java.util.List;
 
+/**
+ * FACADE PATTERN: Subsystem Orchestrator
+ * Simplifies the execution interface for the client.
+ * Hides the complex instantiation of the hardware composite tree, 
+ * OS metric adapters, and task queuing (Command Pattern) behind a unified boundary.
+ */
 public class SystemAdminFacade {
 
     final private SystemCheckProcess checkProcess;

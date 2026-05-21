@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * TEMPLATE METHOD PATTERN: Abstract Class
+ * Provides the rigid, invariant 5-step skeleton for the auditing process.
+ * The core algorithm (runCheck) is declared final to prevent subclass interference,
+ * while allowing environment-specific initialization via the abstract setup() hook.
+ * Follows the Hollywood Principle (Inversion of Control).
+ */
 public abstract class SystemCheckProcess {
     // Dependencies injected from other parts of our architecture
     protected String osType;

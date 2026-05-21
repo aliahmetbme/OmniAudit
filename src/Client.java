@@ -1,3 +1,10 @@
+// ALİ AHMET ERDOĞDU
+// MUHAMMED SAİT DOKUR
+// BARIŞ CAN CEYLAN
+// BATUHAN CAN
+// OmniAudit Project - System Health and Audit Tool
+// SE 311 - Software Engineering 
+
 import admin.SystemAdminFacade;
 import hardware.CPU;
 import hardware.Computer;
@@ -47,48 +54,47 @@ public class Client {
 
 
         /*
-         * STEP 2: Choose the System Check Process (TEMPLATE METHOD PATTERN)
-         * We choose a local check. If we wanted remote, we would just say "new RemoteSystemCheck()".
+         * STEP 2: SCENARIO 1 - Local Windows Machine
+         * We choose a local check. By default, it initializes the Windows adapter.
          */
-        SystemCheckProcess checkProcessForLocalMac = new LocalSystemCheck("macOS");
-        checkProcessForLocalMac.setRootNode(myComputer);
-
-
-        SystemCheckProcess checkProcess = new LocalSystemCheck();
-        checkProcess.setRootNode(myComputer);
-
-        SystemCheckProcess checkRemoteProcess = new RemoteSystemCheck();
-        checkRemoteProcess.setRootNode(myComputer);
+        SystemCheckProcess checkLocalWindows = new LocalSystemCheck("Windows");
+        checkLocalWindows.setRootNode(myComputer);
+        SystemAdminFacade adminWindows = new SystemAdminFacade(checkLocalWindows);
 
         /*
-         * STEP 3: Give the controls to the Administrator (FACADE PATTERN)
-         * The admin doesn't need to know how the tree was built or how the template works.
+         * STEP 3: SCENARIO 2 - Remote Linux Server
+         * We choose a remote check. It establishes SSH and initializes the Linux adapter.
          */
-        SystemAdminFacade adminPanel = new SystemAdminFacade(checkProcess);
-        SystemAdminFacade adminPanelRemote = new SystemAdminFacade(checkRemoteProcess);
-        SystemAdminFacade systemAdminLocalMac = new SystemAdminFacade(checkProcessForLocalMac);
+        SystemCheckProcess checkRemoteLinux = new RemoteSystemCheck("Linux");
+        checkRemoteLinux.setRootNode(myComputer);
+        SystemAdminFacade adminLinux = new SystemAdminFacade(checkRemoteLinux);
 
         /*
-         * STEP 4: Define the tasks (COMMAND & VISITOR PATTERNS)
-         * The admin simply creates a list of strings for the desired audits.
-         * Including our creative "Performance" task!s
+         * STEP 4: SCENARIO 3 - Local macOS Workstation
          */
-        List<String> desiredTasks = Arrays.asList("Security");
+        SystemCheckProcess checkLocalMac = new LocalSystemCheck("macOS");
+        checkLocalMac.setRootNode(myComputer);
+        SystemAdminFacade adminMac = new SystemAdminFacade(checkLocalMac);
+
+        /*
+         * STEP 5: FIRE THE SYSTEM! (Testing all scenarios with different tasks)
+         */
+
+        System.out.println("\n========================================================");
+        System.out.println(" SCENARIO 1: LOCAL WINDOWS MACHINE (Security Audit)     ");
+        System.out.println("========================================================");
+        adminWindows.executeAudit(Arrays.asList("Security"));
+
+        System.out.println("\n========================================================");
+        System.out.println(" SCENARIO 2: REMOTE LINUX SERVER (Optimization & Performance) ");
+        System.out.println("========================================================");
+        adminLinux.executeAudit(Arrays.asList("Optimization", "Performance"));
+
+        System.out.println("\n========================================================");
+        System.out.println(" SCENARIO 3: LOCAL macOS WORKSTATION (Comprehensive Audit)");
+        System.out.println("========================================================");
+        adminMac.executeAudit(Arrays.asList("Security", "Optimization", "Performance"));
         
-        List<String> desiredTasksRemote = Arrays.asList("Security", "Optimization", "Performance");
-
-        /*
-         * STEP 5: FIRE THE SYSTEM!
-         * One single method call triggers the entire pipeline.
-         */
-
-        System.out.println("\n=== Executing Local System Check ===");
-        adminPanel.executeAudit(desiredTasks);
-        System.out.println("\n=== Executing Local System Check (Linux) ===");
-        System.out.println("\n-----------------------------------");
-        adminPanelRemote.executeAudit(desiredTasksRemote);
-        System.out.println("\n=== Executing Local System Check (Mac) ===");
-        System.out.println("\n-----------------------------------");
-        systemAdminLocalMac.executeAudit(desiredTasks);
+        System.out.println("\n=== All system audits completed successfully! ===");
     }
 }

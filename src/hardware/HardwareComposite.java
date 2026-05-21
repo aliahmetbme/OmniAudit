@@ -4,10 +4,12 @@ import tasks.SystemTaskVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-* İşte Composite kalıbının sihrinin gerçekleştiği yer! İçinde başka donanım parçaları barındıran (Anakart gibi) sınıfları gruplamak için bir HardwareComposite soyut sınıfı yazıyoruz.
-* */
-//Şimdi projedeki gerçek gruplarımızı (Bilgisayar, Anakart, ISA Veriyolu) bu sınıftan türetiyoruz. İçleri şimdilik boş görünebilir çünkü tüm ekleme/çıkarma (add/remove) ve kabul etme (accept) yeteneklerini zaten üst sınıftan (HardwareComposite) miras aldılar!
+/**
+ * COMPOSITE PATTERN: Composite Node
+ * Represents the container elements in the hardware tree (e.g., Motherboard, Computer).
+ * Implements the "Safety over Transparency" design principle by keeping addComponent 
+ * and removeComponent methods strictly within this class, rather than the base interface.
+ */
 public abstract class HardwareComposite implements HardwareComponent {
 
     // Holds the child components (Leaf or other Composites)
